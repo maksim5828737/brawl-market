@@ -1,240 +1,42 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
-<meta name="description" content="BRAWL STARS MARKET — игровая витрина с каталогом демонстрационных профилей.">
-<meta property="og:title" content="BRAWL STARS MARKET">
-<meta property="og:description" content="Игровая витрина Brawl Stars: каталог, фильтры и избранное.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://YOUR-USERNAME.github.io/brawl-market/preview.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="BRAWL STARS MARKET">
-<meta name="twitter:description" content="Игровая витрина Brawl Stars.">
-<title>BRAWL STARS MARKET</title>
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff"><title>BRAWL STARS MARKET</title>
 <style>
-:root{--bg:#0b0820;--panel:#171137;--purple:#8c35ff;--purple2:#5b19dc;--blue:#286cff;--muted:#b8addc;--line:#49317d;--gold:#ffd33d}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(ellipse at 10% 5%,#401078 0,transparent 32%),radial-gradient(ellipse at 95% 30%,#102c77 0,transparent 30%),var(--bg);color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding-bottom:94px}
-button,input,select{font:inherit}
-button{cursor:pointer}
-.topbar{height:76px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;background:#100b2be8;border-bottom:1px solid #ffffff17;position:sticky;top:0;z-index:5;backdrop-filter:blur(16px)}
-.brand{display:flex;align-items:center;gap:9px;font-weight:1000;letter-spacing:-.7px;font-size:18px;line-height:.9}
-.brand-mark{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#ffdf55,#ff9e00);display:grid;place-items:center;color:#29144e;font-size:25px;box-shadow:0 5px 20px #ffb52c55;border:2px solid #fff3}
-.brand small{display:block;color:#c58aff;font-size:11px;letter-spacing:2px;margin-top:5px}
-.top-actions{display:flex;gap:9px}
-.icon-btn{width:43px;height:43px;border:1px solid #7652bd;border-radius:50%;background:#1a1240;color:#fff;font-size:20px;position:relative}
-.count{position:absolute;right:-3px;top:-5px;background:#ff405f;border-radius:50%;font-size:10px;width:17px;height:17px;display:grid;place-items:center}
-.hero{padding:26px 18px 22px;min-height:290px;display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;overflow:hidden;position:relative;background:linear-gradient(115deg,#351078 0%,#151b70 65%,#071b4d 100%);border-bottom:1px solid #ffffff18}
-.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none}
-.hero:before{width:220px;height:220px;background:#9d32ff55;left:-80px;top:20px}
-.hero:after{width:190px;height:190px;background:#138dff55;right:-70px;bottom:-60px}
-.hero-copy{position:relative;z-index:1}
-.eyebrow{color:#ffe45e;font-size:11px;font-weight:900;letter-spacing:1.8px}
-.hero h1{font-size:clamp(29px,8vw,43px);line-height:.94;margin:10px 0;text-transform:uppercase;font-weight:1000;letter-spacing:-1.8px;text-shadow:0 4px 0 #28114c}
-.hero p{font-size:12px;color:#ded7ff;line-height:1.5;margin:10px 0 17px}
-.primary{border:0;border-radius:13px;padding:13px 16px;color:#281044;font-weight:1000;background:linear-gradient(180deg,#ffe75d,#ffb900);box-shadow:0 5px 0 #b56b00,0 10px 24px #ffb90030}
-.hero-art{height:235px;position:relative;z-index:1;display:grid;place-items:center}
-.orb{width:190px;height:190px;border-radius:44% 56% 53% 47%;background:radial-gradient(circle at 35% 25%,#ff8cff,#9b36ff 42%,#2822a9 75%);box-shadow:inset -15px -18px 30px #140d62,0 0 40px #9b3cff99;transform:rotate(-12deg);display:grid;place-items:center;font-size:105px;border:3px solid #ffffff55}
-.spark{position:absolute;font-size:30px;text-shadow:0 0 16px #fff}
-.spark.one{top:15px;right:12px}.spark.two{bottom:13px;left:4px;font-size:23px}
-.section{padding:22px 16px 0;max-width:900px;margin:auto}
-.section-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.section-heading h2{font-size:20px;margin:0;font-weight:950}
-.mini-link{color:#c99aff;font-size:12px;text-decoration:none}
-.search-row{display:flex;gap:9px;margin-bottom:12px}
-.search-wrap{flex:1;position:relative}
-.search-wrap span{position:absolute;left:14px;top:11px;font-size:18px;color:#b8a7e8}
-.search-wrap input{width:100%;height:45px;border:1px solid #49347d;border-radius:14px;background:#171238;color:white;padding:0 13px 0 42px;outline:none}
-.search-wrap input:focus{border-color:#a15aff;box-shadow:0 0 0 3px #923aff22}
-.filter-btn{width:48px;border:1px solid #49347d;border-radius:14px;background:#171238;color:white;font-size:20px}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:1px 0 8px;scrollbar-width:none}
-.chip{white-space:nowrap;border:1px solid #42316f;border-radius:13px;background:#171238;color:#d9d0f5;padding:10px 13px;font-size:12px;font-weight:800}
-.chip.active{background:linear-gradient(110deg,#a52cff,#5520d9);border-color:#b56aff;color:#fff;box-shadow:0 5px 16px #7c2aff44}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-top:10px}
-.product{min-width:0;border-radius:18px;overflow:hidden;background:linear-gradient(160deg,#21134a,#110e2d 72%);border:1px solid #7437bd;box-shadow:0 8px 24px #0005;position:relative}
-.product-art{height:132px;position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 45%,var(--glow),transparent 65%),linear-gradient(145deg,var(--art1),var(--art2))}
-.product-art:before{content:"";position:absolute;width:140px;height:140px;border:1px solid #ffffff2b;border-radius:50%;box-shadow:0 0 0 14px #ffffff0a,0 0 0 29px #ffffff08}
-.avatar{font-size:76px;filter:drop-shadow(0 8px 8px #0009);z-index:1;transform:translateY(5px)}
-.flag{position:absolute;top:9px;left:9px;background:#a12cff;border-radius:9px;padding:6px 8px;font-size:9px;font-weight:1000;letter-spacing:.3px;z-index:2}
-.trophy{position:absolute;top:9px;right:8px;background:#130d2cdd;border:1px solid #ffffff25;border-radius:9px;padding:6px 7px;font-size:10px;font-weight:900;z-index:2}
-.product-info{padding:11px}
-.stats{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
-.stat{font-size:9px;color:#e4dcff;background:#ffffff12;border-radius:8px;padding:5px 6px;white-space:nowrap}
-.product h3{font-size:13px;margin:0 0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.buy-row{display:flex;align-items:center;justify-content:space-between;gap:5px}
-.price{font-size:18px;font-weight:1000;white-space:nowrap}
-.buy{border:0;border-radius:10px;background:linear-gradient(120deg,#a92fff,#5c20ed);color:#fff;padding:9px 10px;font-size:11px;font-weight:900;box-shadow:0 4px 12px #6a28ff55}
-.heart{position:absolute;right:9px;bottom:56px;border:0;border-radius:50%;width:29px;height:29px;background:#120b2bd9;color:#fff;font-size:15px;z-index:3}
-.benefits{margin:20px 16px 16px;padding:15px 10px;border:1px solid #48317d;border-radius:17px;background:#171238;display:grid;grid-template-columns:repeat(3,1fr);gap:5px;text-align:center}
-.benefit{font-size:10px;color:#cfc4f1;line-height:1.35}
-.benefit b{display:block;font-size:22px;margin-bottom:5px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:6;padding:10px 8px calc(10px + env(safe-area-inset-bottom));background:#171238f2;border:1px solid #5c3c9b;border-bottom:0;border-radius:22px 22px 0 0;display:flex;justify-content:space-around;backdrop-filter:blur(18px);box-shadow:0 -8px 30px #0006}
-.nav-item{border:0;background:none;color:#b7aad8;font-size:10px;font-weight:800;display:grid;gap:3px;justify-items:center;min-width:60px}
-.nav-item span{font-size:21px}
-.nav-item.active{color:#bd7cff}
-.modal{display:none;position:fixed;inset:0;z-index:10;background:#050311d9;padding:20px;align-items:center;justify-content:center}
-.modal.show{display:flex}
-.modal-box{width:min(100%,360px);background:#1c1440;border:1px solid #9a56ff;border-radius:20px;padding:22px;box-shadow:0 20px 70px #000a}
-.modal-box h3{margin:0 0 10px;font-size:21px}
-.modal-box p{font-size:13px;color:#c9bee8;line-height:1.6}
-.modal-actions{display:flex;gap:9px;margin-top:18px}
-.secondary{background:#30235b;color:white;border:1px solid #6748a5;border-radius:12px;padding:12px;flex:1;font-weight:800}
-.modal-actions .primary{flex:1}
-.notice{font-size:10px;color:#9386b6;text-align:center;padding:8px 20px 18px;line-height:1.5}
-.empty{grid-column:1/-1;text-align:center;color:#b8addc;padding:35px 10px}
-@media(min-width:700px){.hero{padding:38px max(7%,calc((100% - 850px)/2));min-height:340px}.hero-art{height:270px}.orb{width:230px;height:230px;font-size:125px}.section{padding-left:24px;padding-right:24px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.product-art{height:165px}.product-info{padding:14px}.product h3{font-size:15px}.price{font-size:20px}.buy{font-size:12px;padding:10px 13px}.benefits{max-width:850px;margin-left:auto;margin-right:auto}.bottom-nav{max-width:560px;left:50%;transform:translateX(-50%);border-radius:22px 22px 0 0}}
-@media(max-width:360px){.hero{grid-template-columns:1.1fr .9fr;padding-left:13px;padding-right:13px}.orb{width:145px;height:145px;font-size:82px}.hero h1{font-size:27px}.product-art{height:115px}.avatar{font-size:65px}.price{font-size:16px}.buy{padding:8px 8px}}
-
-/* Светлая тема BRAWL MARKET */
-:root{--bg:#ffffff;--panel:#ffffff;--muted:#555;--line:#e5e5e5;--gold:#f5bd24}
-body{background:#fff;color:#111;padding-bottom:94px}
-.topbar{background:#fff;border-bottom:1px solid #e8e8e8;box-shadow:0 3px 18px #00000008}
-.brand{color:#111}.brand small{color:#555}
-.brand-mark{color:#111;border:1px solid #e6b72e;box-shadow:none}
-.icon-btn{background:#fff;color:#111;border:1px solid #ddd}
-.count{color:#fff}
-.hero{background:#fff;border-bottom:1px solid #eee}
-.hero:before,.hero:after{opacity:.08}
-.eyebrow{color:#777}
-.hero h1{color:#111;text-shadow:none}
-.hero p{color:#555}
-.primary{background:#111;color:#fff;box-shadow:0 4px 0 #555,0 8px 18px #00000012}
-.section-heading h2{color:#111}
-.mini-link{color:#333}
-.search-wrap span{color:#555}
-.search-wrap input{background:#fff;color:#111;border:1px solid #ddd}
-.search-wrap input:focus{border-color:#777;box-shadow:0 0 0 3px #0000000d}
-.filter-btn,.chip{background:#fff;color:#222;border:1px solid #ddd}
-.chip.active{background:#111;color:#fff;border-color:#111;box-shadow:none}
-.product{background:#fff;border:1px solid #e6e6e6;box-shadow:0 5px 20px #0000000b}
-.product-art{border-bottom:1px solid #eee}
-.flag{background:#111;color:#fff}
-.trophy{background:#fff;color:#111;border:1px solid #e5e5e5}
-.product h3{color:#111}
-.stat{background:#f3f3f3;color:#444}
-.price{color:#111}
-.buy{background:#111;color:#fff;box-shadow:none}
-.heart{background:#fff;color:#111;border:1px solid #e5e5e5}
-.benefits{background:#fff;border:1px solid #e5e5e5}
-.benefit{color:#444}
-.bottom-nav{background:#fff;border:1px solid #e5e5e5;border-bottom:0;box-shadow:0 -5px 24px #0000000a}
-.nav-item{color:#777}.nav-item.active{color:#111}
-.modal{background:#0008}
-.modal-box{background:#fff;color:#111;border:1px solid #ddd;box-shadow:0 20px 70px #0003}
-.modal-box p{color:#555}
-.secondary{background:#f2f2f2;color:#111;border:1px solid #ddd}
-.empty{color:#555}
-.notice{color:#777}
-@media(prefers-reduced-motion:no-preference){.product,.buy,.icon-btn{transition:transform .18s ease,box-shadow .18s ease}.product:hover{transform:translateY(-2px);box-shadow:0 9px 24px #00000012}}
-
-</style>
-</head>
-<body>
-<header class="topbar">
-  <div class="brand"><div class="brand-mark">✪</div><div>BRAWL STARS<small>MARKET</small></div></div>
-  <div class="top-actions">
-    <button class="icon-btn" aria-label="Поиск" onclick="document.getElementById('search').focus()">⌕</button>
-    <button class="icon-btn" aria-label="Корзина" onclick="showInfo('Корзина','Это демонстрационный макет. Реальная оплата и передача аккаунтов не подключены.')">🛒<span class="count" id="cartCount">0</span></button>
-    <button class="icon-btn" aria-label="Меню" onclick="showInfo('Меню','Каталог · Избранное · Профиль')">☰</button>
-  </div>
-</header>
-
-<section class="hero" id="home">
-  <div class="hero-copy">
-    <div class="eyebrow">ИГРОВАЯ ВИТРИНА</div>
-    <h1>АККАУНТЫ<br>BRAWL STARS</h1>
-    <p>Подбирай профиль по кубкам, бойцам и редкости коллекции.</p>
-    <button class="primary" onclick="document.getElementById('catalog').scrollIntoView()">Перейти в каталог →</button>
-  </div>
-  <div class="hero-art" aria-hidden="true">
-    <div class="orb">🎮</div><span class="spark one">✦</span><span class="spark two">⚡</span>
-  </div>
-</section>
-
-<main>
-<section class="section" id="catalog">
-  <div class="section-heading"><h2>✦ Каталог аккаунтов</h2><a class="mini-link" href="#catalog" onclick="resetFilters()">Сбросить</a></div>
-  <div class="search-row">
-    <div class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="Поиск аккаунта..." autocomplete="off"></div>
-    <button class="filter-btn" onclick="cycleSort()" aria-label="Сортировка">☷</button>
-  </div>
-  <div class="chips" id="chips">
-    <button class="chip active" data-filter="all">★ Все</button>
-    <button class="chip" data-filter="trophy">🏆 По кубкам</button>
-    <button class="chip" data-filter="rare">💎 Редкие</button>
-    <button class="chip" data-filter="popular">🔥 Популярные</button>
-  </div>
-  <div class="grid" id="products"></div>
-</section>
-
-<section class="benefits">
-  <div class="benefit"><b>⚡</b>Удобный<br>каталог</div>
-  <div class="benefit"><b>🛡️</b>Информация<br>о товарах</div>
-  <div class="benefit"><b>💬</b>Демо-поддержка<br>24/7</div>
-</section>
-<p class="notice">Демонстрационный проект, не связанный с Supercell. Карточки и цены вымышлены. Покупка, оплата и передача игровых аккаунтов не осуществляются.</p>
-</main>
-
-<nav class="bottom-nav" aria-label="Основная навигация">
-  <button class="nav-item active" onclick="navTo('home',this)"><span>⌂</span>Главная</button>
-  <button class="nav-item" onclick="navTo('catalog',this)"><span>▦</span>Каталог</button>
-  <button class="nav-item" onclick="showFavorites(this)"><span>☆</span>Избранное</button>
-  <button class="nav-item" onclick="showInfo('Профиль','Это демонстрационная версия сайта. Личный кабинет не подключён.')"><span>♙</span>Профиль</button>
-</nav>
-
-<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal-box"><h3 id="modalTitle"></h3><p id="modalText"></p><div class="modal-actions"><button class="secondary" onclick="closeModal()">Закрыть</button><button class="primary" onclick="closeModal()">Понятно</button></div></div>
-</div>
-
+:root{--ink:#111;--muted:#666;--line:#e8e8e8;--gold:#ffc928;--soft:#fff8df}*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:Inter,Arial,sans-serif;padding-bottom:90px}button,input,select{font:inherit}button{cursor:pointer}.top{position:sticky;top:0;z-index:5;background:#fffffff2;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:12px max(16px,calc((100% - 1100px)/2));backdrop-filter:blur(12px)}.brand{font-weight:1000;letter-spacing:-1px;font-size:20px}.brand small{display:block;font-size:10px;letter-spacing:3px;color:#777;margin-top:3px}.mark{display:inline-grid;place-items:center;width:39px;height:39px;border-radius:12px;background:var(--gold);margin-right:8px}.actions{display:flex;gap:8px}.icon{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;color:#111}.hero{max-width:1100px;margin:22px auto 0;padding:28px 22px;border-radius:24px;background:linear-gradient(110deg,#fff5cf,#fff 55%,#f3f3f3);display:flex;align-items:center;justify-content:space-between;gap:20px}.hero h1{font-size:clamp(30px,6vw,54px);line-height:.95;margin:9px 0 12px;letter-spacing:-2px}.hero p{color:#555;max-width:490px;line-height:1.5}.hero-art{font-size:clamp(75px,15vw,140px);filter:drop-shadow(0 12px 10px #0002)}.tag{font-size:11px;font-weight:900;letter-spacing:2px}.wrap{max-width:1100px;margin:auto;padding:22px 16px}.head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.head h2{margin:0;font-size:25px}.tools{display:flex;gap:8px;flex-wrap:wrap}.field{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;color:#111;min-width:0}.search{width:min(100%,280px)}.filters{display:flex;gap:8px;overflow:auto;padding:15px 0}.chip{border:1px solid var(--line);background:#fff;border-radius:30px;padding:9px 14px;white-space:nowrap}.chip.active{background:#111;color:#fff;border-color:#111}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;transition:.2s}.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #0000000d}.pic{height:160px;display:grid;place-items:center;background:linear-gradient(145deg,var(--c1),var(--c2));font-size:70px}.info{padding:13px}.kind{color:#777;font-size:11px}.info h3{font-size:15px;margin:6px 0 12px}.buyrow{display:flex;align-items:center;justify-content:space-between;gap:8px}.price{font-weight:1000;font-size:18px}.btn{border:0;border-radius:11px;padding:10px 13px;background:#111;color:#fff;font-weight:800}.btn.gold{background:var(--gold);color:#111}.btn.light{background:#f3f3f3;color:#111}.btn:disabled{opacity:.45;cursor:not-allowed}.empty{padding:40px;text-align:center;color:#777;grid-column:1/-1}.panel{border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:20px}.panel h3{margin-top:0}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.cartline,.orderline{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.cartline:last-child{border:0}.qty{display:flex;align-items:center;gap:8px}.qty button{border:1px solid var(--line);background:#fff;border-radius:8px;width:28px;height:28px}.bottom{position:fixed;z-index:6;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;gap:8px;padding:9px 6px calc(9px + env(safe-area-inset-bottom))}.bottom button{background:none;border:0;padding:7px 14px;color:#555;font-size:12px}.bottom button.active{color:#111;font-weight:900}.modal{display:none;position:fixed;inset:0;background:#0008;z-index:10;align-items:center;justify-content:center;padding:16px}.modal.show{display:flex}.dialog{background:#fff;border-radius:20px;padding:20px;width:min(100%,470px);max-height:90vh;overflow:auto}.dialog h3{margin-top:0}.dialog input,.dialog select,.dialog textarea{width:100%;margin:6px 0 12px}.hint{color:#777;font-size:12px;line-height:1.5}.adminrow{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}footer{text-align:center;color:#888;font-size:11px;padding:15px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{margin:12px 12px 0}.pic{height:135px}}@media(max-width:390px){.brand{font-size:16px}.icon{padding:9px}.grid{gap:9px}.info{padding:10px}.price{font-size:16px}.btn{padding:9px;font-size:12px}.pic{height:115px}}
+</style></head><body>
+<header class="top"><div class="row"><span class="mark">★</span><div class="brand">BRAWL STARS<small>MARKET</small></div></div><div class="actions"><button class="icon" onclick="showPage('cart')">🛒 <b id="cartCount">0</b></button><button class="icon" onclick="showPage('profile')">♙</button></div></header>
+<section class="hero"><div><div class="tag">МАГАЗИН ИГРОВЫХ АКСЕССУАРОВ</div><h1>ИГРАЙ.<br>СОЗДАВАЙ.<br>ПОБЕЖДАЙ.</h1><p>Аксессуары для игрового настроения: коврики, держатели, чехлы и другие полезные вещи.</p><button class="btn gold" onclick="document.getElementById('catalog').scrollIntoView()">Открыть каталог ↓</button></div><div class="hero-art">🎮</div></section>
+<main class="wrap" id="catalog"><div class="head"><h2>Каталог товаров</h2><div class="tools"><input class="field search" id="search" placeholder="Найти товар..."><select class="field" id="sort"><option value="default">Сначала популярные</option><option value="asc">Сначала дешевле</option><option value="desc">Сначала дороже</option></select></div></div><div class="filters" id="filters"><button class="chip active" data-cat="Все">Все товары</button><button class="chip" data-cat="Аксессуары">Аксессуары</button><button class="chip" data-cat="Для телефона">Для телефона</button><button class="chip" data-cat="Для ПК">Для ПК</button><button class="chip" data-cat="Коллекция">Коллекция</button></div><div class="grid" id="products"></div>
+<section id="page" class="panel" hidden></section></main>
+<footer>BRAWL STARS MARKET — независимый демонстрационный магазин. Не связан с Supercell.</footer>
+<nav class="bottom"><button class="active" onclick="showPage('catalog',this)">⌂ Каталог</button><button onclick="showPage('cart',this)">🛒 Корзина</button><button onclick="showPage('profile',this)">♙ Профиль</button><button onclick="showPage('admin',this)">⚙ Управление</button></nav>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="dialog" id="dialog"></div></div>
 <script>
-const items=[
- {id:1,name:'Премиум аккаунт',cups:52000,fighters:90,price:2499,tag:'🔥 ХИТ',rarity:'Все редкие',emoji:'🦅',a:'#4216a8',b:'#102e91',glow:'#9d4dff',popular:true},
- {id:2,name:'Отличный аккаунт',cups:38000,fighters:85,price:1599,tag:'％ ВЫГОДНО',rarity:'Мифические',emoji:'🌵',a:'#087f4b',b:'#0a4caa',glow:'#36e88d',popular:true},
- {id:3,name:'Топовый аккаунт',cups:61000,fighters:95,price:3499,tag:'★ НОВИНКА',rarity:'Легендарные',emoji:'🤖',a:'#0862a8',b:'#7b35be',glow:'#26b9ff',popular:false},
- {id:4,name:'Буст аккаунт',cups:45000,fighters:88,price:1999,tag:'🔥 ПОПУЛЯРНЫЙ',rarity:'Мифические',emoji:'🥷',a:'#a51c9a',b:'#3421a8',glow:'#ff49d1',popular:true},
- {id:5,name:'Стартовый профиль',cups:12000,fighters:42,price:799,tag:'✦ СТАРТ',rarity:'Эпические',emoji:'⭐',a:'#b45b14',b:'#4b238d',glow:'#ffb347',popular:false},
- {id:6,name:'Коллекционер',cups:70000,fighters:100,price:4999,tag:'💎 ELITE',rarity:'Легендарные',emoji:'👑',a:'#174eaa',b:'#651c9e',glow:'#58baff',popular:true}
+const defaults=[
+{id:1,name:'Игровой коврик XL',cat:'Для ПК',price:1490,emoji:'🖱️',c1:'#f8e8b2',c2:'#e8e8e8',desc:'Большой коврик для мыши и клавиатуры.'},
+{id:2,name:'Подставка для телефона',cat:'Для телефона',price:790,emoji:'📱',c1:'#e8edff',c2:'#f5f5f5',desc:'Удобная настольная подставка.'},
+{id:3,name:'Игровые наушники',cat:'Аксессуары',price:3290,emoji:'🎧',c1:'#e8e8e8',c2:'#d8d8d8',desc:'Наушники для игр и общения.'},
+{id:4,name:'Брелок-звезда',cat:'Коллекция',price:390,emoji:'⭐',c1:'#fff1b8',c2:'#ffe6e6',desc:'Небольшой тематический аксессуар.'},
+{id:5,name:'Чехол для смартфона',cat:'Для телефона',price:990,emoji:'📲',c1:'#e8f7ee',c2:'#e9edff',desc:'Защитный чехол универсального дизайна.'},
+{id:6,name:'Механическая клавиатура',cat:'Для ПК',price:4590,emoji:'⌨️',c1:'#f1e7ff',c2:'#e4e4e4',desc:'Компактная клавиатура для рабочего места.'},
+{id:7,name:'Настольная LED-лампа',cat:'Аксессуары',price:1190,emoji:'💡',c1:'#fff0d9',c2:'#fff9e9',desc:'Мягкая подсветка игрового стола.'},
+{id:8,name:'Коллекционная фигурка',cat:'Коллекция',price:1790,emoji:'🧸',c1:'#ffe8e8',c2:'#f3eaff',desc:'Декоративная фигурка для коллекции.'}
 ];
-items[5].fighters=100;
-let filter='all',sortMode=0,favorites=new Set(),cart=0,favOnly=false;
-const money=n=>n.toLocaleString('ru-RU')+' ₽';
-function render(){
- const q=document.getElementById('search').value.toLowerCase().trim();
- let list=items.filter(x=>(x.name.toLowerCase().includes(q)||x.rarity.toLowerCase().includes(q))&&(!favOnly||favorites.has(x.id)));
- if(filter==='trophy')list.sort((a,b)=>b.cups-a.cups);
- if(filter==='rare')list=list.filter(x=>x.rarity==='Легендарные'||x.rarity==='Мифические');
- if(filter==='popular')list=list.filter(x=>x.popular);
- if(sortMode===1)list.sort((a,b)=>a.price-b.price);
- if(sortMode===2)list.sort((a,b)=>b.price-a.price);
- const grid=document.getElementById('products');
- grid.innerHTML=list.length?list.map(x=>`
- <article class="product">
-  <div class="product-art" style="--art1:${x.a};--art2:${x.b};--glow:${x.glow}">
-   <span class="flag">${x.tag}</span><span class="trophy">🏆 ${x.cups.toLocaleString('ru-RU')}</span>
-   <div class="avatar">${x.emoji}</div>
-  </div>
-  <button class="heart" aria-label="В избранное" onclick="toggleFav(${x.id})">${favorites.has(x.id)?'♥':'♡'}</button>
-  <div class="product-info">
-   <div class="stats"><span class="stat">⚔ ${x.fighters}+ бойцов</span><span class="stat">💎 ${x.rarity}</span></div>
-   <h3>${x.name}</h3>
-   <div class="buy-row"><span class="price">${money(x.price)}</span><button class="buy" onclick="details(${x.id})">Подробнее</button></div>
-  </div>
- </article>`).join(''):'<div class="empty">Ничего не найдено. Попробуйте изменить поиск или фильтр.</div>';
-}
-function details(id){const x=items.find(v=>v.id===id);showInfo(x.name,`Демо-карточка профиля: ${x.cups.toLocaleString('ru-RU')} кубков, ${x.fighters} бойцов, редкость: ${x.rarity}. Цена в макете: ${money(x.price)}. Реальная покупка и передача аккаунта не предусмотрены.`)}
-function showInfo(title,text){document.getElementById('modalTitle').textContent=title;document.getElementById('modalText').textContent=text;document.getElementById('modal').classList.add('show')}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
-function toggleFav(id){favorites.has(id)?favorites.delete(id):favorites.add(id);render()}
-function showFavorites(btn){favOnly=!favOnly;filter='all';document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.filter==='all'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));btn.classList.add('active');render();document.getElementById('catalog').scrollIntoView()}
-function navTo(id,btn){favOnly=false;document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));btn.classList.add('active');document.getElementById(id).scrollIntoView()}
-function cycleSort(){sortMode=(sortMode+1)%3;render();showInfo('Сортировка',sortMode===1?'Сначала недорогие':sortMode===2?'Сначала дорогие':'По умолчанию')}
-function resetFilters(){document.getElementById('search').value='';filter='all';sortMode=0;favOnly=false;document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.filter==='all'));render()}
-document.getElementById('search').addEventListener('input',render);
-document.getElementById('chips').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;favOnly=false;document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c===b));render()});
-render();
-</script>
-</body>
-</html>
+let products=JSON.parse(localStorage.getItem('bm_products')||'null')||defaults;let cart=JSON.parse(localStorage.getItem('bm_cart')||'{}');let orders=JSON.parse(localStorage.getItem('bm_orders')||'[]');let category='Все';
+const money=n=>n.toLocaleString('ru-RU')+' ₽';const save=()=>{localStorage.setItem('bm_products',JSON.stringify(products));localStorage.setItem('bm_cart',JSON.stringify(cart));localStorage.setItem('bm_orders',JSON.stringify(orders));};
+function render(){let q=document.getElementById('search').value.toLowerCase(),s=document.getElementById('sort').value;let list=products.filter(p=>(category==='Все'||p.cat===category)&&(p.name.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)));if(s==='asc')list.sort((a,b)=>a.price-b.price);if(s==='desc')list.sort((a,b)=>b.price-a.price);document.getElementById('products').innerHTML=list.length?list.map(p=>`<article class="card"><div class="pic" style="--c1:${p.c1};--c2:${p.c2};background:linear-gradient(145deg,${p.c1},${p.c2})">${p.emoji}</div><div class="info"><div class="kind">${p.cat}</div><h3>${escapeHtml(p.name)}</h3><div class="buyrow"><span class="price">${money(p.price)}</span><button class="btn" onclick="addCart(${p.id})">В корзину</button></div></div></article>`).join(''):'<div class="empty">Товары не найдены.</div>';updateCount();}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function updateCount(){document.getElementById('cartCount').textContent=Object.values(cart).reduce((a,b)=>a+b,0)}function addCart(id){cart[id]=(cart[id]||0)+1;save();updateCount();toast('Товар добавлен в корзину');}
+function toast(t){let n=document.createElement('div');n.textContent=t;n.style='position:fixed;top:82px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 18px;border-radius:12px;z-index:20';document.body.append(n);setTimeout(()=>n.remove(),1700)}
+function showPage(name,btn){document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');let p=document.getElementById('page');p.hidden=false;document.getElementById('products').hidden=name!=='catalog';document.getElementById('filters').hidden=name!=='catalog';document.querySelector('.head').hidden=name!=='catalog';if(name==='catalog'){p.hidden=true;document.getElementById('catalog').scrollIntoView({behavior:'smooth'});return}if(name==='cart')renderCart();if(name==='profile')renderProfile();if(name==='admin')renderAdmin();p.scrollIntoView({behavior:'smooth'});}
+function renderCart(){let p=document.getElementById('page'),ids=Object.keys(cart).filter(id=>cart[id]>0),sum=0;p.innerHTML='<h3>Корзина</h3>'+ (ids.length?ids.map(id=>{let x=products.find(p=>p.id==id);if(!x)return '';sum+=x.price*cart[id];return `<div class="cartline"><div><b>${escapeHtml(x.name)}</b><div class="hint">${money(x.price)} за шт.</div></div><div class="qty"><button onclick="changeQty(${id},-1)">−</button>${cart[id]}<button onclick="changeQty(${id},1)">+</button></div><b>${money(x.price*cart[id])}</b></div>`}).join('')+`<div class="row" style="justify-content:space-between;margin-top:15px"><b>Итого: ${money(sum)}</b><button class="btn gold" onclick="checkout()">Оформить заявку</button></div>`:'<p class="hint">Корзина пока пуста.</p>')+'<p class="hint">Пока это локальная версия: заявка сохранится только в этом браузере. Онлайн-оплата и отправка заказа ещё не подключены.</p>';}
+function changeQty(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];save();renderCart();updateCount()}
+function checkout(){if(!Object.keys(cart).length)return;openModal(`<h3>Оформление заявки</h3><p class="hint">Заполни контактные данные. Не вводи данные банковской карты.</p><form onsubmit="submitOrder(event)"><label>Имя</label><input class="field" name="name" required maxlength="60"><label>Контакт для связи</label><input class="field" name="contact" required maxlength="100" placeholder="Например, email"><label>Комментарий</label><textarea class="field" name="note" rows="3" maxlength="300"></textarea><button class="btn gold" type="submit">Отправить заявку</button></form>`)}
+function submitOrder(e){e.preventDefault();let f=new FormData(e.target);orders.unshift({id:Date.now(),date:new Date().toLocaleString('ru-RU'),name:f.get('name'),contact:f.get('contact'),note:f.get('note'),items:{...cart},status:'Новая'});cart={};save();closeModal();showPage('profile');toast('Заявка сохранена на этом устройстве');}
+function renderProfile(){let p=document.getElementById('page');p.innerHTML='<h3>Личный кабинет</h3><p class="hint">Это профиль на текущем устройстве. Регистрация и вход через сервер пока не настроены.</p><h4>Мои заявки</h4>'+(orders.length?orders.map(o=>`<div class="orderline"><div><b>Заявка №${o.id}</b><div class="hint">${o.date} · ${escapeHtml(o.contact)}</div></div><span>${o.status}</span></div>`).join(''):'<p class="hint">Заявок пока нет.</p>')}
+function renderAdmin(){let p=document.getElementById('page');p.innerHTML='<h3>Управление магазином</h3><p class="hint">Демо-панель без защищённого входа. Изменения хранятся только в этом браузере. Перед публикацией подключим серверную авторизацию и базу данных.</p><button class="btn gold" onclick="addProductForm()">＋ Добавить товар</button><h4>Товары</h4>'+products.map(x=>`<div class="adminrow"><span>${escapeHtml(x.name)} · ${money(x.price)}</span><button class="btn light" onclick="editProduct(${x.id})">Изменить</button><button class="btn light" onclick="deleteProduct(${x.id})">Удалить</button></div>`).join('')+'<h4>Заявки покупателей</h4>'+(orders.length?orders.map(o=>`<div class="orderline"><div><b>${escapeHtml(o.name)} — №${o.id}</b><div class="hint">${escapeHtml(o.contact)} · ${o.date}</div></div><select class="field" onchange="setStatus(${o.id},this.value)"><option ${o.status==='Новая'?'selected':''}>Новая</option><option ${o.status==='В обработке'?'selected':''}>В обработке</option><option ${o.status==='Закрыта'?'selected':''}>Закрыта</option></select></div>`).join(''):'<p class="hint">Заявок ещё нет.</p>');}
+function addProductForm(){productForm()}function editProduct(id){productForm(products.find(x=>x.id===id))}function productForm(x={}){openModal(`<h3>${x.id?'Изменить':'Новый'} товар</h3><form onsubmit="saveProduct(event,${x.id||0})"><label>Название</label><input class="field" name="name" required value="${escapeHtml(x.name||'')}"><label>Категория</label><select class="field" name="cat"><option>Аксессуары</option><option>Для телефона</option><option>Для ПК</option><option>Коллекция</option></select><label>Цена, ₽</label><input class="field" name="price" type="number" min="1" required value="${x.price||''}"><label>Эмодзи-изображение</label><input class="field" name="emoji" maxlength="8" value="${x.emoji||'🎮'}"><button class="btn gold" type="submit">Сохранить</button></form>`);if(x.cat)document.querySelector('#dialog select[name=cat]').value=x.cat;}
+function saveProduct(e,id){e.preventDefault();let f=new FormData(e.target),obj={id:id||Date.now(),name:f.get('name'),cat:f.get('cat'),price:Number(f.get('price')),emoji:f.get('emoji')||'🎮',c1:'#fff0c2',c2:'#eee'};if(id)products=products.map(x=>x.id===id?{...x,...obj}:x);else products.push(obj);save();closeModal();render();renderAdmin();toast('Товар сохранён');}
+function deleteProduct(id){if(!confirm('Удалить товар из каталога?'))return;products=products.filter(x=>x.id!==id);delete cart[id];save();render();renderAdmin();}function setStatus(id,status){let o=orders.find(x=>x.id===id);if(o)o.status=status;save();}
+function openModal(html){document.getElementById('dialog').innerHTML=html;document.getElementById('modal').classList.add('show')}function closeModal(){document.getElementById('modal').classList.remove('show')}
+document.getElementById('search').addEventListener('input',render);document.getElementById('sort').addEventListener('change',render);document.getElementById('filters').addEventListener('click',e=>{let b=e.target.closest('[data-cat]');if(!b)return;category=b.dataset.cat;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===b));render()});render();
+</script></body></html>
