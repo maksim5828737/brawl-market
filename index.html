@@ -76,6 +76,19 @@
     .account-disclaimer{font-size:12px;line-height:1.6;color:#666;margin:0 0 45px;padding:14px 16px;border-left:3px solid var(--yellow);background:#fafafa}
     @media(max-width:850px){.account-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:620px){.account-grid{grid-template-columns:repeat(2,1fr);gap:11px}.account-banner{padding:13px}.account-rank{font-size:23px}.account-emblem{font-size:35px}.account-info{padding:11px}}
+    .add-cart{border:0;background:var(--yellow);border-radius:10px;padding:9px 11px;font-weight:850;cursor:pointer}
+    .add-cart:hover{filter:brightness(.96)}
+    .cart-section{padding:18px 0 45px}
+    .cart-list{display:grid;gap:10px}
+    .cart-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:14px;padding:12px}
+    .cart-row h3{font-size:14px;margin:0 0 4px}
+    .cart-row p{font-size:12px;color:var(--muted);margin:0}
+    .cart-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+    .qty-btn,.remove-btn,.checkout-btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 10px;cursor:pointer;font-weight:750}
+    .remove-btn{color:#b42318}
+    .cart-total{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding:15px;background:var(--soft);border-radius:14px;font-weight:900}
+    .checkout-btn{background:var(--dark);color:#fff;border-color:var(--dark);padding:11px 15px}
+    .cart-empty{padding:24px;text-align:center;border:1px dashed #ddd;border-radius:16px;color:var(--muted)}
     .notice{background:#f7f7f7;border:1px solid var(--line);padding:18px 20px;border-radius:17px;color:#555;font-size:12px;line-height:1.6;margin:0 0 52px}
     .notice strong{color:#222}
     footer{border-top:1px solid var(--line);padding:25px 0;color:#777;font-size:12px}
@@ -89,7 +102,7 @@
 <header>
   <div class="wrap nav">
     <a class="brand" href="#" aria-label="Brawl Market — главная"><span class="logo">⚡</span><span>BRAWL MARKET</span></a>
-    <nav class="navlinks"><a href="#catalog">Каталог</a><a href="#accounts">Аккаунты</a><a href="#about">О проекте</a></nav>
+    <nav class="navlinks"><a href="#catalog">Каталог</a><a href="#accounts">Аккаунты</a><a href="#cart">Корзина <span id="cartCount">0</span></a><a href="#about">О проекте</a></nav>
     <span class="tag">ФАН-КАТАЛОГ</span>
   </div>
 </header>
@@ -195,6 +208,18 @@
       </article>\n    </div>\n    <p class="account-disclaimer">Это только демонстрационные примеры карточек. Реальные аккаунты не выставляются на продажу, кнопок покупки и передачи учётных данных нет.</p>
   </section>
 
+  <section class="wrap cart-section" id="cart">
+    <div class="section-head">
+      <div><h2>Корзина</h2><div class="sub">Выбранные товары и предварительный расчёт стоимости</div></div>
+      <span class="tag" id="cartSummaryCount">0 товаров</span>
+    </div>
+    <div id="cartItems" class="cart-list"><div class="cart-empty">Корзина пока пуста. Добавь товары из каталога.</div></div>
+    <div id="cartTotal" class="cart-total" hidden>
+      <span>Итого</span><span id="cartTotalValue">0 ₽</span>
+    </div>
+    <p class="sub" style="line-height:1.6;margin-top:12px">Это демонстрационное оформление заказа: сайт не принимает оплату и не запрашивает платёжные данные.</p>
+  </section>
+
   <section class="wrap" id="about">
     <div class="notice"><strong>О проекте.</strong> BRAWL MARKET — независимый фанатский информационный каталог. Это не официальный сайт Supercell. Названия и обозначения Brawl Stars принадлежат их правообладателям. Раздел аккаунтов содержит только вымышленные демонстрационные карточки. Сайт не продаёт и не передаёт аккаунты, не принимает оплату и не обещает передачу внутриигровых предметов.</div>
   </section>
@@ -215,6 +240,73 @@ const PRODUCTS_ENDPOINT = `${SUPABASE_URL}/rest/v1/products`;
 let items = [];
 let activeFilter = "Все";
 let favorites = new Set();
+let cart = {};
+try {
+  cart = JSON.parse(localStorage.getItem("brawlMarketCart") || "{}") || {};
+} catch {
+  cart = {};
+}
+
+function saveCart() {
+  try { localStorage.setItem("brawlMarketCart", JSON.stringify(cart)); } catch (error) {
+    console.warn("Не удалось сохранить корзину на этом устройстве.", error);
+  }
+}
+
+function cartEntries() {
+  return Object.entries(cart).map(([key, quantity]) => ({
+    index: Number(key), quantity: Number(quantity)
+  })).filter(entry =>
+    Number.isInteger(entry.index) && entry.index >= 0 &&
+    entry.index < items.length && Number.isInteger(entry.quantity) && entry.quantity > 0
+  );
+}
+
+function updateCart() {
+  const entries = cartEntries();
+  const totalItems = entries.reduce((sum, entry) => sum + entry.quantity, 0);
+  const total = entries.reduce((sum, entry) => {
+    const price = Number(items[entry.index]?.price);
+    return sum + (Number.isFinite(price) ? price * entry.quantity : 0);
+  }, 0);
+
+  document.getElementById("cartCount").textContent = totalItems;
+  document.getElementById("cartSummaryCount").textContent = `${totalItems} товаров`;
+  const list = document.getElementById("cartItems");
+  const totalBox = document.getElementById("cartTotal");
+
+  if (!entries.length) {
+    list.innerHTML = '<div class="cart-empty">Корзина пока пуста. Добавь товары из каталога.</div>';
+    totalBox.hidden = true;
+    return;
+  }
+
+  list.innerHTML = entries.map(({index, quantity}) => {
+    const item = items[index];
+    const price = Number(item.price);
+    const priceText = Number.isFinite(price) ? formatPrice(price) : "Цена не указана";
+    return `<article class="cart-row">
+      <div><h3>${escapeHTML(item.name)}</h3><p>${escapeHTML(priceText)} · Количество: ${quantity}</p></div>
+      <div class="cart-actions">
+        <button class="qty-btn" data-cart-minus="${index}" aria-label="Уменьшить количество">−</button>
+        <strong>${quantity}</strong>
+        <button class="qty-btn" data-cart-plus="${index}" aria-label="Увеличить количество">+</button>
+        <button class="remove-btn" data-cart-remove="${index}">Удалить</button>
+      </div>
+    </article>`;
+  }).join("");
+
+  document.getElementById("cartTotalValue").textContent = formatPrice(total);
+  totalBox.hidden = false;
+}
+
+function addToCart(index) {
+  if (!items[index]) return;
+  const key = String(index);
+  cart[key] = (Number(cart[key]) || 0) + 1;
+  saveCart();
+  updateCart();
+}
 
 const grid = document.getElementById("catalogGrid");
 const search = document.getElementById("search");
@@ -275,7 +367,7 @@ function render() {
         <div class="desc">${escapeHTML(item.desc)}</div>
         <div class="card-foot">
           <span class="game-label">${price ? escapeHTML(price) : "BRAWL STARS"}</span>
-          <button class="fav ${favorites.has(index) ? "on" : ""}" data-fav="${index}"
+          <button class="add-cart" data-add-cart="${index}" type="button">В корзину</button><button class="fav ${favorites.has(index) ? "on" : ""}" data-fav="${index}"
             aria-label="Добавить в избранное" title="Избранное">${favorites.has(index) ? "♥" : "♡"}</button>
         </div>
       </div>
@@ -333,6 +425,7 @@ async function loadProducts() {
     }));
 
     render();
+    updateCart();
     if (items.length) {
       count.textContent = `${items.length} товаров из Supabase`;
     }
@@ -355,6 +448,13 @@ document.getElementById("filters").addEventListener("click", event => {
 search.addEventListener("input", render);
 
 grid.addEventListener("click", event => {
+  const addButton = event.target.closest("[data-add-cart]");
+  if (addButton) {
+    addToCart(Number(addButton.dataset.addCart));
+    addButton.textContent = "Добавлено ✓";
+    setTimeout(() => { if (addButton.isConnected) addButton.textContent = "В корзину"; }, 900);
+    return;
+  }
   const button = event.target.closest("[data-fav]");
   if (!button) return;
   const id = Number(button.dataset.fav);
@@ -362,7 +462,29 @@ grid.addEventListener("click", event => {
   render();
 });
 
+document.getElementById("cartItems").addEventListener("click", event => {
+  const minus = event.target.closest("[data-cart-minus]");
+  const plus = event.target.closest("[data-cart-plus]");
+  const remove = event.target.closest("[data-cart-remove]");
+  const key = String(Number((minus || plus || remove)?.dataset.cartMinus ??
+    (minus || plus || remove)?.dataset.cartPlus ??
+    (minus || plus || remove)?.dataset.cartRemove));
+  if (minus) {
+    cart[key] = (Number(cart[key]) || 0) - 1;
+    if (cart[key] <= 0) delete cart[key];
+  } else if (plus) {
+    cart[key] = (Number(cart[key]) || 0) + 1;
+  } else if (remove) {
+    delete cart[key];
+  } else {
+    return;
+  }
+  saveCart();
+  updateCart();
+});
+
 document.getElementById("year").textContent = new Date().getFullYear();
+updateCart();
 loadProducts();
 </script>
 </body>
